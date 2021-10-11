@@ -65,3 +65,4 @@ for (let i = 0; i < 25; i++) {
     comments: comments,
   });
 }
+console.log(genObject);
