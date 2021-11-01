@@ -1,6 +1,6 @@
 import {getRandomNumber, getMaxLength} from './util.js';
 
-let description = [
+const description = [
   'Люблю фотографировать всё вокруг и получать от этого одно только удовольствие',
   'Думаю, что фотография вышла забавной',
   'Животные - самые фотогеничные существа на земле',
@@ -8,7 +8,7 @@ let description = [
   'Прекрасное время года, чтобы любоваться такими фотографиями',
 ];
 
-let message = [
+const message = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -17,7 +17,7 @@ let message = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-let name = [
+const name = [
   'Артём',
   'Игорь',
   'Андрей',
@@ -29,9 +29,9 @@ let name = [
   'Леонид',
 ];
 
-let genObject = [];
+const genArray = [];
 for (let i = 0; i < 25; i++) {
-  let comments = [];
+  const comments = [];
   for(let i = 0; i < 3; i++) {
     comments.push({
       id: i,
@@ -40,7 +40,7 @@ for (let i = 0; i < 25; i++) {
       name: name[getRandomNumber(0, message.length - 1)],
     });
   }
-  genObject.push({
+  genArray.push({
     id: i,
     url: `photos/${i + 1}.jpg`,
     description: description[getRandomNumber(0, description.length - 1)],
@@ -48,4 +48,5 @@ for (let i = 0; i < 25; i++) {
     comments: comments,
   });
 }
-console.log(genObject);
+
+export {genArray};
