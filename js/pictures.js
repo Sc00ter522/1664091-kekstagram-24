@@ -1,4 +1,5 @@
 import {genArray} from './data.js';
+import {createBigPicture} from './big_pictures.js';
 
 const setDataToHtml = function (i) {
   const picture = document.querySelector('#picture').content;
@@ -13,6 +14,7 @@ const setDataToHtml = function (i) {
   urlPicture.src = urlObject;
   commentsPicture.textContent = commmentsObject;
   likesPicture.textContent = likesObject;
+  urlPicture.addEventListener('click', () => createBigPicture(dataObject));
   return clonedElement;
 };
 
@@ -21,4 +23,3 @@ for (let i = 0; i < genArray.length; i++) {
   const newPicture = setDataToHtml(i);
   pictures.appendChild(newPicture);
 }
-
