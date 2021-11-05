@@ -32,9 +32,9 @@ const name = [
 const genArray = [];
 for (let i = 0; i < 25; i++) {
   const comments = [];
-  for(let i = 0; i < 3; i++) {
+  for(let j = 0; j < 3; j++) {
     comments.push({
-      id: i,
+      id: j,
       avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
       message: message[getRandomNumber(0, message.length - 1)],
       name: name[getRandomNumber(0, message.length - 1)],
