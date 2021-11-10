@@ -18,4 +18,6 @@ function getMaxLength(string, maxLength) {
   }
 }
 
-export {getRandomNumber, getMaxLength};
+const findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) !== index);
+
+export {getRandomNumber, getMaxLength, findDuplicates};
