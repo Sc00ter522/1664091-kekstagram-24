@@ -18,4 +18,6 @@ function getMaxLength(string, maxLength) {
   }
 }
 
-export {getRandomNumber, getMaxLength};
+const findDuplicates = (arr) => new Set(arr).size !== arr.length;
+
+export {getRandomNumber, getMaxLength, findDuplicates};
