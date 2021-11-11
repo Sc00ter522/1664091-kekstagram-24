@@ -1,4 +1,4 @@
-import {getRandomNumber, getMaxLength, findDuplicates} from './util.js';
+import {getMaxLength, findDuplicates} from './util.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -28,16 +28,30 @@ document.addEventListener('keydown', (evt) => {
   }
 });
 
-const validateHashtags = function (evt) {
-  const inputHashtags = textHashtags.value.split(' ');
-  //console.log(inputHashtags);
-  //Привести в нижний регистр с помощью цикла;
-  //перезаписывать массив;
-  const arrayIsValid = !findDuplicates(inputHashtags);
-  //console.log(arrayIsValid);
-  if (!arrayIsValid) {
+const validateText = function (evt) {
+  if (getMaxLength(textDescription.value, 140)) {
+    textDescription.setCustomValidity('');
+    textDescription.reportValidity();
+  } else {
     evt.preventDefault();
-    textHashtags.setCustomValidity('Не должно быть дубликатов');
+    textDescription.setCustomValidity('Длина комментария не может составлять больше 140 символов');
+    textDescription.reportValidity();
+  }
+};
+
+const validateHashtags = function (evt) {
+  //evt.preventDefault();
+  const inputHashtags = textHashtags.value.split(' ');
+  for (let j = 0; j < inputHashtags.length; j++) {
+    inputHashtags[j] = inputHashtags[j].toLowerCase();
+  }
+  //console.log(inputHashtags);
+  const arrayIsValid = !findDuplicates(inputHashtags);
+  const lengthHashtagsisValid = inputHashtags.length <= 5;
+  ///console.log(arrayIsValid);
+  if (!arrayIsValid || !lengthHashtagsisValid) {
+    evt.preventDefault();
+    textHashtags.setCustomValidity('Не должно быть дубликатов и не больше 5 хэштегов');
     textHashtags.reportValidity();
   } else {
     textHashtags.setCustomValidity('');
@@ -58,10 +72,15 @@ const validateHashtags = function (evt) {
   }
 };
 
-textHashtags.addEventListener('change', (evt) => {
+textDescription.addEventListener('input', (evt) => {
+  validateText(evt);
+});
+
+textHashtags.addEventListener('input', (evt) => {
   validateHashtags(evt);
 });
 
 form.addEventListener('submit', (evt) => {
   validateHashtags(evt);
+  validateText(evt);
 });
