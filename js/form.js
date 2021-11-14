@@ -1,5 +1,8 @@
 import {getMaxLength, findDuplicates} from './util.js';
 
+const MAX_LENGTH = 140;
+const MAX_HASHTAGS = 5;
+
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
 const formOverlay = form.querySelector('.img-upload__overlay');
@@ -13,15 +16,17 @@ const onOpenImgLoad = function () {
   body.classList.add('modal-open');
 };
 
-form.addEventListener('change', () => onOpenImgLoad());
+form.addEventListener('change', onOpenImgLoad);
 
 const onCloseImgLoad = function () {
+  form.removeEventListener('change', onOpenImgLoad);
+  formCancel.removeEventListener('click', onCloseImgLoad);
   formOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   inputFile.value = '';
 };
 
-formCancel.addEventListener('click', () => onCloseImgLoad());
+formCancel.addEventListener('click', onCloseImgLoad);
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape' && evt.target.tagName !== 'INPUT' &&  evt.target.tagName !== 'TEXTAREA') {
     onCloseImgLoad();
@@ -29,7 +34,7 @@ document.addEventListener('keydown', (evt) => {
 });
 
 const validateText = function (evt) {
-  if (getMaxLength(textDescription.value, 140)) {
+  if (getMaxLength(textDescription.value, MAX_LENGTH)) {
     textDescription.setCustomValidity('');
     textDescription.reportValidity();
   } else {
@@ -40,15 +45,12 @@ const validateText = function (evt) {
 };
 
 const validateHashtags = function (evt) {
-  //evt.preventDefault();
   const inputHashtags = textHashtags.value.split(' ');
   for (let j = 0; j < inputHashtags.length; j++) {
     inputHashtags[j] = inputHashtags[j].toLowerCase();
   }
-  //console.log(inputHashtags);
   const arrayIsValid = !findDuplicates(inputHashtags);
-  const lengthHashtagsisValid = inputHashtags.length <= 5;
-  ///console.log(arrayIsValid);
+  const lengthHashtagsisValid = inputHashtags.length <= MAX_HASHTAGS;
   if (!arrayIsValid || !lengthHashtagsisValid) {
     evt.preventDefault();
     textHashtags.setCustomValidity('Не должно быть дубликатов и не больше 5 хэштегов');
