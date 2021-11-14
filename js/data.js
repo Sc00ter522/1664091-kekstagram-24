@@ -1,4 +1,4 @@
-import {getRandomNumber, getMaxLength} from './util.js';
+import {getRandomNumber} from './util.js';
 
 const description = [
   'Люблю фотографировать всё вокруг и получать от этого одно только удовольствие',
@@ -32,7 +32,7 @@ const name = [
 const genArray = [];
 for (let i = 0; i < 25; i++) {
   const comments = [];
-  for(let j = 0; j < 3; j++) {
+  for(let j = 0; j < 13; j++) {
     comments.push({
       id: j,
       avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
